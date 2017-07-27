@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Server port="8005" shutdown="SHUTDOWN">
+<Server port="%BASE_PORT%" shutdown="SHUTDOWN">
   <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
   <!-- Security listener. Documentation at /docs/config/listeners.html
   <Listener className="org.apache.catalina.security.SecurityListener" />
@@ -23,7 +23,7 @@
 
   <Service name="Catalina">
 
-    <Connector port="8080" protocol="HTTP/1.1"
+    <Connector port="%HTTP_PORT%" protocol="HTTP/1.1"
               URIEncoding="UTF-8"
               connectionTimeout="20000"
               maxHttpHeaderSize="32768"/>
