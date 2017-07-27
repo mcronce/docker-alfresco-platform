@@ -73,3 +73,5 @@ ENV JAVA_OPTS " -XX:-DisableExplicitGC -Djava.security.egd=file:/dev/./urandom -
 WORKDIR /root
 
 VOLUME "/opt/alf_data/"
+ADD assets/entrypoint.sh /opt/
+CMD ["/opt/entrypoint.sh" "run"]
