@@ -14,6 +14,8 @@ sed -i --follow-symlinks \
 	-e "s/%SOLR_HOST%/${SOLR_HOST:-solr}/" \
 	-e "s/%SOLR_HTTP_PORT%/${SOLR_HTTP_PORT:-8080}/" \
 	-e "s/%SOLR_HTTPS_PORT%/${SOLR_HTTPS_PORT:-8443}/" \
+	-e "s/%LIBREOFFICE_HOST%/${LIBREOFFICE_HOST:-libreoffice}/" \
+	-e "s/%LIBREOFFICE_PORT%/${LIBREOFFICE_PORT:-8100}/" \
 '/usr/local/tomcat/webapps/alfresco/WEB-INF/classes/alfresco-global.properties';
 
 /usr/local/tomcat/bin/catalina.sh $@;
