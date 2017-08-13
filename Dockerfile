@@ -15,7 +15,7 @@ ENV MMT_VERSION=5.2.f
 
 ## JAR - ALFRESCO MMT
 RUN set -x && \
-    curl --silent --location \
+    curl --location \
       ${NEXUS}/org/alfresco/alfresco-mmt/${MMT_VERSION}/alfresco-mmt-${MMT_VERSION}.jar \
       -o /root/alfresco-mmt.jar && \
       mkdir /root/amp
@@ -33,23 +33,22 @@ ENV ALF_VERSION=5.2.f \
 
 ## ALFRESCO.WAR
 RUN set -x && \
-    curl --silent --location \
+    curl --location \
       ${NEXUS}/org/alfresco/alfresco-platform/${ALF_VERSION}/alfresco-platform-${ALF_VERSION}.war \
       -o alfresco-platform-${ALF_VERSION}.war && \
     unzip -q alfresco-platform-${ALF_VERSION}.war -d webapps/alfresco && \
     rm alfresco-platform-${ALF_VERSION}.war
 
-
 ## JDBC - POSTGRESQL
 ENV PG_LIB_VERSION=9.2-1002.jdbc4
 RUN set -x && \
-    curl --silent --location \
+    curl --location \
       ${NEXUS}/postgresql/postgresql/${PG_LIB_VERSION}/postgresql-${PG_LIB_VERSION}.jar \
       -o lib/postgresql-${PG_LIB_VERSION}.jar
 
 ## AMP - ALFRESCO SHARE SERVICE
 RUN set -x && \
-    curl --silent --location \
+    curl --location \
       ${NEXUS}/org/alfresco/alfresco-share-services/${ALF_SHARE_SERVICE}/alfresco-share-services-${ALF_SHARE_SERVICE}.amp \
       -o /root/amp/alfresco-share-services-${ALF_SHARE_SERVICE}.amp && \
     java -jar /root/alfresco-mmt.jar install /root/amp/ webapps/alfresco -nobackup -directory && \
