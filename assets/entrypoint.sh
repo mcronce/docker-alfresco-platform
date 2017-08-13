@@ -18,5 +18,9 @@ sed -i --follow-symlinks \
 	-e "s/%LIBREOFFICE_PORT%/${LIBREOFFICE_PORT:-8100}/" \
 '/usr/local/tomcat/webapps/alfresco/WEB-INF/classes/alfresco-global.properties';
 
+while ! pg_isready -h "${DB_HOST:-postgresql}" -p "${DB_PORT:-5432}" -U "${DB_USER:-alfresco}"; do
+	sleep 1;
+done;
+
 /usr/local/tomcat/bin/catalina.sh $@;
 
