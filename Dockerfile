@@ -1,6 +1,12 @@
 FROM tomcat:7.0-jre8
 MAINTAINER Jeremie Lesage <jeremie.lesage@gmail.com>
 
+RUN \
+	apt-get update && \
+	apt-get install -y --no-install-recommends postgresql-client && \
+	apt-get clean && \
+	rm -Rvf /var/lib/apt/lists/*
+
 ENV NEXUS=https://artifacts.alfresco.com/nexus/content/groups/public
 
 WORKDIR /usr/local/tomcat/
@@ -13,7 +19,6 @@ RUN set -x && \
       ${NEXUS}/org/alfresco/alfresco-mmt/${MMT_VERSION}/alfresco-mmt-${MMT_VERSION}.jar \
       -o /root/alfresco-mmt.jar && \
       mkdir /root/amp
-
 
 RUN set -x \
       && apt-get update \
@@ -60,8 +65,6 @@ RUN set -x && \
               webapps/examples \
               webapps/manager \
               webapps/host-manager
-
-
 
 COPY assets/catalina.properties conf/catalina.properties
 COPY assets/server.xml conf/server.xml
