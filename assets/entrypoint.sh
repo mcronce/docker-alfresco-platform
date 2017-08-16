@@ -16,6 +16,11 @@ sed -i --follow-symlinks \
 	-e "s/%SOLR_HTTPS_PORT%/${SOLR_HTTPS_PORT:-8443}/" \
 	-e "s/%LIBREOFFICE_HOST%/${LIBREOFFICE_HOST:-libreoffice}/" \
 	-e "s/%LIBREOFFICE_PORT%/${LIBREOFFICE_PORT:-8100}/" \
+	-e "s/%SMB_ENABLED%/${SMB_ENABLED:-false}/" \
+	-e "s/%SMB_PORT%/${SMB_PORT:-445}/" \
+	-e "s/%SMB_NETBIOS_SESSION_PORT%/${SMB_NETBIOS_SESSION_PORT:-139}/" \
+	-e "s/%SMB_NETBIOS_NAME_PORT%/${SMB_NETBIOS_NAME_PORT:-137}/" \
+	-e "s/%SMB_NETBIOS_DATA_PORT%/${SMB_NETBIOS_DATA_PORT:-138}/" \
 '/usr/local/tomcat/webapps/alfresco/WEB-INF/classes/alfresco-global.properties';
 
 while ! pg_isready -h "${DB_HOST:-postgresql}" -p "${DB_PORT:-5432}" -U "${DB_USER:-alfresco}"; do
