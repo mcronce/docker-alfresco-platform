@@ -21,7 +21,7 @@ sed -i --follow-symlinks \
 	-e "s/%SMB_NETBIOS_SESSION_PORT%/${SMB_NETBIOS_SESSION_PORT:-139}/" \
 	-e "s/%SMB_NETBIOS_NAME_PORT%/${SMB_NETBIOS_NAME_PORT:-137}/" \
 	-e "s/%SMB_NETBIOS_DATA_PORT%/${SMB_NETBIOS_DATA_PORT:-138}/" \
-	-s "s/%FTP_ENABLED%/${FTP_ENABLED:-false}/" \
+	-e "s/%FTP_ENABLED%/${FTP_ENABLED:-false}/" \
 	-e "s/%FTP_PORT%/${FTP_PORT:-21}/" \
 '/usr/local/tomcat/webapps/alfresco/WEB-INF/classes/alfresco-global.properties';
 
