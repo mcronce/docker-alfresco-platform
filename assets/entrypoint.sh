@@ -5,12 +5,22 @@ sed -i --follow-symlinks \
 	-e "s/%HTTP_PORT%/${TOMCAT_HTTP_PORT:-8080}/" \
 '/usr/local/tomcat/conf/server.xml';
 
+if [ "${DB_TYPE}" = 'postgresql' ]; then
+	DB_DRIVER='org.postgresql.Driver';
+	DB_URL="jdbc:postgresql://${DB_HOST:-postgresql}:${DB_PORT:-5432}/${DB_NAME:-alfresco}";
+elif [ "${DB_TYPE}" = 'mysql' ]; then
+	DB_DRIVER='org.mariadb.jdbc.Driver';
+	DB_URL="jdbc:mysql://${DB_HOST:-mysql}:${DB_PORT:-3306}/${DB_NAME:-alfresco}?useUnicode=yes&characterEncoding=UTF-8";
+else
+	echo "!!! Unknown database type '${DB_TYPE}'";
+	echo "!!! Please choose either 'postgresql' or 'mysql'";
+	exit 1;
+fi;
+
 sed -i --follow-symlinks \
 	-e "s/%DB_USER%/${DB_USER:-alfresco}/" \
 	-e "s/%DB_PASSWORD%/${DB_PASSWORD:-alfresco}/" \
-	-e "s/%DB_NAME%/${DB_NAME:-alfresco}/" \
-	-e "s/%DB_HOST%/${DB_HOST:-postgresql}/" \
-	-e "s/%DB_PORT%/${DB_PORT:-5432}/" \
+	-e "s@%DB_URL%@${DB_URL}@" \
 	-e "s/%SOLR_HOST%/${SOLR_HOST:-solr}/" \
 	-e "s/%SOLR_HTTP_PORT%/${SOLR_HTTP_PORT:-8080}/" \
 	-e "s/%SOLR_HTTPS_PORT%/${SOLR_HTTPS_PORT:-8443}/" \
