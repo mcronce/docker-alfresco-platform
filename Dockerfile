@@ -3,7 +3,7 @@ MAINTAINER Jeremie Lesage <jeremie.lesage@gmail.com>
 
 RUN \
 	apt-get update && \
-	apt-get install -y --no-install-recommends postgresql-client && \
+	apt-get install -y --no-install-recommends postgresql-client mariadb-client-core-10.1 && \
 	apt-get clean && \
 	rm -Rvf /var/lib/apt/lists/*
 
@@ -45,6 +45,10 @@ RUN set -x && \
     curl --location \
       ${NEXUS}/postgresql/postgresql/${PG_LIB_VERSION}/postgresql-${PG_LIB_VERSION}.jar \
       -o lib/postgresql-${PG_LIB_VERSION}.jar
+
+## JDBC - MYSQL
+RUN set -x && \
+	curl -L https://downloads.mariadb.com/Connectors/java/connector-java-2.1.0/mariadb-java-client-2.1.0.jar -o lib/mariadb-java-client-2.1.0.jar
 
 ## AMP - ALFRESCO SHARE SERVICE
 RUN set -x && \
