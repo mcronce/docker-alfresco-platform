@@ -34,6 +34,8 @@ sed -i --follow-symlinks \
 	-e "s/%SMB_NETBIOS_DATA_PORT%/${SMB_NETBIOS_DATA_PORT:-138}/" \
 	-e "s/%FTP_ENABLED%/${FTP_ENABLED:-false}/" \
 	-e "s/%FTP_PORT%/${FTP_PORT:-21}/" \
+	-e "s/%FTP_DATA_PORT_LOW%/${FTP_DATA_PORT_LOW:-1025}/" \
+	-e "s/%FTP_DATA_PORT_HIGH%/${FTP_DATA_PORT_HIGH:-32768}/" \
 '/usr/local/tomcat/webapps/alfresco/WEB-INF/classes/alfresco-global.properties';
 
 if [ "${DB_TYPE}" = 'postgresql' ]; then
