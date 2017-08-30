@@ -36,9 +36,15 @@ sed -i --follow-symlinks \
 	-e "s/%FTP_PORT%/${FTP_PORT:-21}/" \
 '/usr/local/tomcat/webapps/alfresco/WEB-INF/classes/alfresco-global.properties';
 
-while ! pg_isready -h "${DB_HOST:-postgresql}" -p "${DB_PORT:-5432}" -U "${DB_USER:-alfresco}"; do
-	sleep 1;
-done;
+if [ "${DB_TYPE}" = 'postgresql' ]; then
+	while ! pg_isready -h "${DB_HOST:-postgresql}" -p "${DB_PORT:-5432}" -U "${DB_USER:-alfresco}"; do
+		sleep 1;
+	done;
+elif [ "${DB_TYPE}" = 'mysql' ]; then
+	while ! curl --silent "${DB_HOST:-mysql}:${DB_PORT:-3306}" | grep 'MySQL\|MariaDB'; do
+		sleep 1;
+	done;
+fi;
 
 /usr/local/tomcat/bin/catalina.sh $@;
 
