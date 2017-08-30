@@ -20,6 +20,7 @@ fi;
 sed -i --follow-symlinks \
 	-e "s/%DB_USER%/${DB_USER:-alfresco}/" \
 	-e "s/%DB_PASSWORD%/${DB_PASSWORD:-alfresco}/" \
+	-e "s/%DB_DRIVER%/${DB_DRIVER}/" \
 	-e "s@%DB_URL%@${DB_URL}@" \
 	-e "s/%SOLR_HOST%/${SOLR_HOST:-solr}/" \
 	-e "s/%SOLR_HTTP_PORT%/${SOLR_HTTP_PORT:-8080}/" \
