@@ -6,10 +6,10 @@ RUN pip install --no-cache-dir mechanize cssselect lxml packaging
 
 RUN mkdir /app
 ADD assets/find_latest_version /app/
-
 RUN \
 	( \
 		set -ex; \
+		echo "NEXUS=\"${NEXUS}\""; \
 		echo "MMT_VERSION=\"$(/app/find_latest_version "${NEXUS}/org/alfresco/alfresco-mmt")\""; \
 		echo "ALF_VERSION=\"$(/app/find_latest_version "${NEXUS}/org/alfresco/alfresco-platform")\""; \
 		echo "PG_LIB_VERSION=\"$(/app/find_latest_version "${NEXUS}/postgresql/postgresql")\""; \
@@ -18,7 +18,6 @@ RUN \
 
 FROM tomcat:7.0-jre8
 MAINTAINER Jeremie Lesage <jeremie.lesage@gmail.com>
-ENV NEXUS=https://artifacts.alfresco.com/nexus/content/groups/public
 
 RUN \
 	apt-get update && \
@@ -27,7 +26,6 @@ RUN \
 	rm -Rvf /var/lib/apt/lists/*
 
 WORKDIR /usr/local/tomcat/
-
 COPY --from=version_discoverer /app/latest_versions.env /root/
 
 ## ALFRESCO.WAR
