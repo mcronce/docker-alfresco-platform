@@ -20,6 +20,6 @@ page = response.read()
 page = lxml.html.fromstring(page)
 
 links = [link.text[:-1] for link in page.cssselect('html > body > table > tr > td > a') if link.text[-1] == '/']
-links = sorted(links, key = packaging.version.parse, reverse = True)
+links = sorted(links, key = packaging.version.LegacyVersion, reverse = True)
 print(links[0])
 
