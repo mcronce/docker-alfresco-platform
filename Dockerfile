@@ -1,7 +1,7 @@
 FROM fedora as version_discoverer
 ENV NEXUS=https://artifacts.alfresco.com/nexus/content/groups/public
 
-RUN dnf install -y python2-pip unzip
+RUN dnf install -y python2-pip
 RUN pip install --no-cache-dir mechanize cssselect lxml packaging
 
 RUN mkdir /app
