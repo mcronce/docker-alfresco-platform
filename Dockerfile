@@ -74,6 +74,6 @@ WORKDIR /root
 
 VOLUME "/opt/alf_data/"
 ADD assets/entrypoint.sh /opt/
-#ENTRYPOINT ["/opt/entrypoint.sh"]
+ENTRYPOINT ["/opt/entrypoint.sh"]
 CMD ["run"]
 
